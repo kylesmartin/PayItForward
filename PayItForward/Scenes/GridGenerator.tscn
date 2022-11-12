@@ -1,0 +1,74 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Scripts/grid_generator.gd" type="Script" id=1]
+[ext_resource path="res://Scenes/GridTile.tscn" type="PackedScene" id=2]
+
+[node name="GridGenerator" type="Node2D"]
+scale = Vector2( 1, 1.02427 )
+script = ExtResource( 1 )
+grid = [ [ 1, 1, 2, 2, 2 ], [ 1, 1, 1, 1, 1 ], [ 1, 1, 1, 1, 1 ], [ 1, 1, 1, 1, 1 ], [ 1, 1, 1, 1, 1 ] ]
+
+[node name="GridTile" type="Node2D" parent="." instance=ExtResource( 2 )]
+
+[node name="GridTile2" type="Node2D" parent="." instance=ExtResource( 2 )]
+position = Vector2( 16, 0 )
+
+[node name="GridTile3" type="Node2D" parent="." instance=ExtResource( 2 )]
+position = Vector2( 0, 16 )
+
+[node name="GridTile4" type="Node2D" parent="." instance=ExtResource( 2 )]
+position = Vector2( 16, 16 )
+
+[node name="GridTile5" type="Node2D" parent="." instance=ExtResource( 2 )]
+position = Vector2( 32, 16 )
+
+[node name="GridTile6" type="Node2D" parent="." instance=ExtResource( 2 )]
+position = Vector2( 48, 16 )
+
+[node name="GridTile7" type="Node2D" parent="." instance=ExtResource( 2 )]
+position = Vector2( 64, 16 )
+
+[node name="GridTile8" type="Node2D" parent="." instance=ExtResource( 2 )]
+position = Vector2( 0, 32 )
+
+[node name="GridTile9" type="Node2D" parent="." instance=ExtResource( 2 )]
+position = Vector2( 16, 32 )
+
+[node name="GridTile10" type="Node2D" parent="." instance=ExtResource( 2 )]
+position = Vector2( 32, 32 )
+
+[node name="GridTile11" type="Node2D" parent="." instance=ExtResource( 2 )]
+position = Vector2( 48, 32 )
+
+[node name="GridTile12" type="Node2D" parent="." instance=ExtResource( 2 )]
+position = Vector2( 64, 32 )
+
+[node name="GridTile13" type="Node2D" parent="." instance=ExtResource( 2 )]
+position = Vector2( 0, 48 )
+
+[node name="GridTile14" type="Node2D" parent="." instance=ExtResource( 2 )]
+position = Vector2( 16, 48 )
+
+[node name="GridTile15" type="Node2D" parent="." instance=ExtResource( 2 )]
+position = Vector2( 32, 48 )
+
+[node name="GridTile16" type="Node2D" parent="." instance=ExtResource( 2 )]
+position = Vector2( 48, 48 )
+
+[node name="GridTile17" type="Node2D" parent="." instance=ExtResource( 2 )]
+position = Vector2( 64, 48 )
+
+[node name="GridTile18" type="Node2D" parent="." instance=ExtResource( 2 )]
+position = Vector2( 0, 64 )
+
+[node name="GridTile19" type="Node2D" parent="." instance=ExtResource( 2 )]
+position = Vector2( 16, 64 )
+
+[node name="GridTile20" type="Node2D" parent="." instance=ExtResource( 2 )]
+position = Vector2( 32, 64 )
+
+[node name="GridTile21" type="Node2D" parent="." instance=ExtResource( 2 )]
+position = Vector2( 48, 64 )
+
+[node name="GridTile22" type="Node2D" parent="." instance=ExtResource( 2 )]
+position = Vector2( 64, 64 )
