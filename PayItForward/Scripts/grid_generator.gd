@@ -1,10 +1,8 @@
 tool
 extends Node
 
-
 # the walkable grid tile
 var grid_tile = preload("res://Scenes/GridTile.tscn")
-
 
 # the size of the square grid tile in pixels
 var grid_size = 16
@@ -37,13 +35,13 @@ func set_grid(new_grid):
 	var current_pos = Vector2.ZERO
 	for i in len(grid):
 		for j in len(grid[i]):
-			# walkable space
+			# create walkable space
 			if grid[i][j] == 1:
 				var tile_instance = grid_tile.instance()
 				tile_instance.position = current_pos
 				add_child(tile_instance)
 				tile_instance.owner = self
-			# atm
+			# create atm
 			elif grid[i][j] == 2:
 				# TODO
 				print("TODO: Spawn ATM")
