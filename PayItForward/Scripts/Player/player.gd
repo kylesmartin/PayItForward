@@ -1,16 +1,18 @@
 extends Node
+class_name Player
+
+var current_tile: GridTile
 
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func check_move(direction: String) -> bool:
+	if direction == "forward":
+		return current_tile.lower_neighbor != null
+	elif direction == "backward":
+		return current_tile.upper_neighbor != null
+	elif direction == "left":
+		return current_tile.left_neighbor != null
+	elif direction == "right":
+		return current_tile.right_neighbor != null
+	else:
+		push_error("Error checking neighbor: invalid direction '%s'" % direction)
+		return false

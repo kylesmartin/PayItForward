@@ -178,16 +178,15 @@ animations = [ {
 } ]
 
 [node name="Player" type="Node2D"]
-rotation = -0.00164084
 script = ExtResource( 5 )
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
-position = Vector2( -113, 81 )
+position = Vector2( 0, -16 )
+z_index = 1
 frames = SubResource( 33 )
 animation = "walk_right"
 frame = 3
 playing = true
-offset = Vector2( 113, -81 )
 
 [node name="StateMachine" type="Node2D" parent="."]
 script = ExtResource( 4 )
@@ -196,12 +195,11 @@ initial_state = NodePath("Idle")
 [node name="Walk" type="Node2D" parent="StateMachine"]
 script = ExtResource( 2 )
 animated_sprite_path = NodePath("../../Sprite")
+player_path = NodePath("../..")
 
 [node name="Idle" type="Node2D" parent="StateMachine"]
 script = ExtResource( 3 )
 animated_sprite_path = NodePath("../../Sprite")
-
-[node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2( 0.1, 0.1 )
+player_path = NodePath("../..")
 
 [connection signal="animation_finished" from="Sprite" to="StateMachine/Walk" method="_on_Sprite_animation_finished"]
