@@ -5,4 +5,5 @@
 [node name="GridGenerator" type="Node2D"]
 scale = Vector2( 1, 1.02427 )
 script = ExtResource( 1 )
-grid = [ [ 1, 1, 2, 2, 2 ], [ 1, 1, 1, 1, 1 ], [ 1, 1, 1, 1, 1 ], [ 1, 1, 1, 1, 1 ], [ 1, 1, 1, 1, 1 ] ]
+owner_path = NodePath(".")
+grid = [ [ 3, 1, 1, 1, 1 ], [ 1, 1, 1, 1, 1 ], [ 1, 1, 1, 1, 1 ], [ 1, 1, 1, 1, 1 ], [ 1, 1, 1, 1, 1 ] ]

@@ -1,5 +1,5 @@
-extends Node
 class_name GridTile
+extends Node
 
 var upper_neighbor: GridTile = null
 
@@ -10,6 +10,9 @@ var left_neighbor: GridTile = null
 var right_neighbor: GridTile = null
 
 var is_atm: bool = false
+
+# indicates if an atm or a player is occupying the space
+var is_occupied: bool = false
 
 
 # given a grid, finds neighbors

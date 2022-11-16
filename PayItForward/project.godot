@@ -10,6 +10,11 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "Node",
+"class": "ATM",
+"language": "GDScript",
+"path": "res://Scripts/atm.gd"
+}, {
+"base": "Node",
 "class": "GridTile",
 "language": "GDScript",
 "path": "res://Scripts/grid_tile.gd"
@@ -30,6 +35,7 @@ _global_script_classes=[ {
 "path": "res://Scripts/state_machine.gd"
 } ]
 _global_script_class_icons={
+"ATM": "",
 "GridTile": "",
 "Player": "",
 "State": "",

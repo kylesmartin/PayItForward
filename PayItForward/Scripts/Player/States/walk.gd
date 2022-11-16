@@ -14,6 +14,7 @@ var direction
 
 var next_tile: GridTile
 
+# the time to walk from one tile to another
 var t = 0
 
 
@@ -35,7 +36,7 @@ func enter(_msg := {}) -> void:
 
 # On exit, stop the current idle animation
 func exit() -> void:
-	player.current_tile = next_tile
+	player.set_current_tile(next_tile)
 	t = 0
 	next_tile = null
 	animated_sprite.stop()
@@ -46,17 +47,10 @@ func physics_update(_delta: float) -> void:
 	if !is_active:
 		return
 
+	# lerp the player position using t
 	t += _delta * walk_animation_duration
 	player.position = player.current_tile.position.linear_interpolate(next_tile.position, t)
 	
+	# transition if destination tile reached
 	if player.position == next_tile.position:
 		state_machine.transition_to("Idle", {"direction": direction})
-
-
-# transitions when the animation is finished
-func _on_Sprite_animation_finished() -> void:
-	if !is_active:
-		return
-	
-	print("Walk animation finished")
-	# state_machine.transition_to("Idle", {"direction": direction})

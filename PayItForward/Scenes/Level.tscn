@@ -5,6 +5,7 @@
 [node name="Level" type="Node2D"]
 
 [node name="GridGenerator" parent="." instance=ExtResource( 1 )]
+owner_path = NodePath("..")
 grid = [ [ 3, 1, 1, 1, 1 ], [ 1, 1, 1, 1, 1 ] ]
 
 [node name="Camera2D" type="Camera2D" parent="."]

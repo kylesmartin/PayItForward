@@ -17,6 +17,7 @@ func enter(_msg := {}) -> void:
 		animated_sprite.play("idle_forward")
 		return
 
+	# loop idle animation
 	animated_sprite.play("idle_%s" % _msg["direction"])
 
 
@@ -24,6 +25,7 @@ func update(delta: float) -> void:
 	if !is_active:
 		return
 
+	# transition out of idle if the movement is valid
 	if Input.is_action_just_pressed("move_up"):
 		_transition_if_valid("backward")
 	elif Input.is_action_just_pressed("move_left"):
@@ -34,6 +36,7 @@ func update(delta: float) -> void:
 		_transition_if_valid("forward")
 
 
+# transitions to walking if player is able to move in given direction
 func _transition_if_valid(_direction: String) -> void:
 	var is_valid: bool = player.check_move(_direction)
 	if !is_valid:
