@@ -1,6 +1,10 @@
 class_name GridTile
 extends Node
 
+export var animated_sprite_path = NodePath()
+
+onready var animated_sprite: AnimatedSprite = get_node(animated_sprite_path)
+
 var upper_neighbor: GridTile = null
 
 var lower_neighbor: GridTile = null
@@ -9,10 +13,19 @@ var left_neighbor: GridTile = null
 
 var right_neighbor: GridTile = null
 
-var is_atm: bool = false
+var is_finish = false
 
-# indicates if an atm or a player is occupying the space
-var is_occupied: bool = false
+var player_id = 0
+
+# the atm occupying the space
+var atm = null
+
+# the player occupying the space
+var occupant = null
+
+
+func _ready() -> void:
+	set_player_id(0, false)
 
 
 # given a grid, finds neighbors
@@ -29,3 +42,9 @@ func find_neighbors(grid, row: int, column: int):
 	# get right neighbor
 	if column < len(grid[row]) - 1:
 		right_neighbor = grid[row][column + 1]
+
+
+func set_player_id(_player_id: int, _is_finish: bool) -> void:
+	player_id = _player_id
+	is_finish = _is_finish
+	animated_sprite.play("space_%d" % player_id)

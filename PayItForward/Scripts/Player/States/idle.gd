@@ -22,17 +22,29 @@ func enter(_msg := {}) -> void:
 
 
 func update(delta: float) -> void:
-	if !is_active:
+	if !is_active or !player.is_active:
 		return
 
-	# transition out of idle if the movement is valid
+	# give money OR transition out of idle if the movement is valid
 	if Input.is_action_just_pressed("move_up"):
+		var success: bool = player.fund_neighbor("backward")
+		if success:
+			return
 		_transition_if_valid("backward")
 	elif Input.is_action_just_pressed("move_left"):
+		var success: bool = player.fund_neighbor("left")
+		if success:
+			return
 		_transition_if_valid("left")
 	elif Input.is_action_just_pressed("move_right"):
+		var success: bool = player.fund_neighbor("right")
+		if success:
+			return
 		_transition_if_valid("right")
 	elif Input.is_action_just_pressed("move_down"):
+		var success: bool = player.fund_neighbor("forward")
+		if success:
+			return
 		_transition_if_valid("forward")
 
 

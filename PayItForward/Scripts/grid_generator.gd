@@ -1,11 +1,19 @@
 tool
 extends Node
 
+# the level manager scene
+var level_manager = preload("res://Scenes/LevelManager.tscn")
+
 # the walkable grid tile
 var grid_tile = preload("res://Scenes/GridTile.tscn")
 
-# the player scene
-var player = preload("res://Scenes/Player.tscn")
+# the four player prefabs
+var player_prefabs = [
+	preload("res://Scenes/Player1.tscn"),
+	preload("res://Scenes/Player2.tscn"),
+	# preload("res://Scenes/Player3.tscn"), // TODO: not ready yet
+	# preload("res://Scenes/Player4.tscn")  // TODO: not ready yet
+]
 
 # the atm scene
 var atm = preload("res://Scenes/ATM.tscn")
@@ -22,12 +30,8 @@ var players = []
 # the grid of ATMs
 var atms = []
 
-# the path to the node that will own grid spawns
-export var owner_path = NodePath()
-
-# the owner of the grid spawns
-onready var grid_owner = get_node(owner_path)
-
+# list of all nodes spawned by the grid generator
+var spawned_nodes = []
 
 """
 stores the format of the grid
@@ -45,8 +49,21 @@ export var grid = [
 	[1, 1, 1, 1, 1],
 ] setget set_grid
 
+# x, y, start funds
+export var player_starts = [
+	Vector3(0, 0, 0)
+]
+
+# x, y, player_starts index
+export var player_finishes = [
+	Vector3(0, 0, 0)
+]
+
 
 func _ready() -> void:
+	var level_manager_instance: LevelManager = level_manager.instance() as LevelManager
+	add_child(level_manager_instance)
+	
 	# find neighbors of each grid tile
 	for i in len(tiles):
 		for j in len(tiles[i]):
@@ -62,8 +79,11 @@ func _ready() -> void:
 			# skip if null
 			if players[i][j] == null:
 				continue
+			var start_tile: GridTile = tiles[i][j] as GridTile
 			var p: Player = players[i][j] as Player
-			p.set_current_tile(tiles[i][j] as GridTile)
+			p.set_current_tile(start_tile)
+			start_tile.set_player_id(p.id, false)
+			level_manager_instance.players.push_back(p)
 
 	# set current tiles of all atms
 	for i in len(atms):
@@ -73,20 +93,32 @@ func _ready() -> void:
 				continue
 			var atm: ATM = atms[i][j] as ATM
 			atm.set_current_tile(tiles[i][j] as GridTile)
-	
+			
+	# fund players
+	for player_start in player_starts:
+		var x: int = player_start.x
+		var y: int = player_start.y
+		var funds: int = player_start.z
+		var p: Fundable = players[x][y]
+		if p == null:
+			push_error("grid_generator._ready: no player found at (%d, %d)" % [x, y])
+			return
+		p.add_funds(funds)
 
 # updates the grid
 func set_grid(new_grid):
+	var player_count: int = 0
 	grid = new_grid
 	tiles = []
 	players = []
 	atms = []
-	
 
 	# delete existing children
-	for n in get_children():
+	for n in spawned_nodes:
 		remove_child(n)
 		n.queue_free()
+		
+	spawned_nodes.clear()
 
 	# spawn new grid tiles
 	var current_pos = Vector2.ZERO
@@ -103,6 +135,7 @@ func set_grid(new_grid):
 				tile_instance.position = current_pos
 				add_child(tile_instance)
 				tile_row.push_back(tile_instance)
+				spawned_nodes.push_back(tile_instance)
 			else:
 				tile_row.push_back(null)
 
@@ -111,18 +144,22 @@ func set_grid(new_grid):
 				var atm_instance = atm.instance()
 				atm_instance.position = current_pos
 				add_child(atm_instance)
-				# atm_instance.owner = grid_owner # should be editable in lvl editor
 				atm_row.push_back(atm_instance)
+				spawned_nodes.push_back(atm_instance)
 			else:
 				atm_row.push_back(null)
 
 			# spawn player
 			if grid[i][j] == 3:
-				var player_instance = player.instance()
+				if player_count == len(player_prefabs):
+					push_error("grid_generator.set_grid: too many players")
+					return;
+				var player_instance = player_prefabs[player_count].instance()
 				player_instance.position = current_pos
 				add_child(player_instance)
-				# player_instance.owner = grid_owner # should be editable in lvl editor
 				player_row.push_back(player_instance)
+				spawned_nodes.push_back(player_instance)
+				player_count += 1
 			else:
 				player_row.push_back(null)
 

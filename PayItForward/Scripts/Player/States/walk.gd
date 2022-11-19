@@ -32,6 +32,9 @@ func enter(_msg := {}) -> void:
 		next_tile = player.current_tile.right_neighbor
 	# play animation
 	animated_sprite.play("walk_%s" % direction)
+	# decrement player balance
+	player.withdraw_funds(1) # TODO: set movement cost as a constant somewhere
+	print("Player %d balance is now %d" % [player.id, player.balance]) # TODO: send signal here
 
 
 # On exit, stop the current idle animation
@@ -44,7 +47,7 @@ func exit() -> void:
 
 # moves the player
 func physics_update(_delta: float) -> void:
-	if !is_active:
+	if !is_active or !player.is_active:
 		return
 
 	# lerp the player position using t
