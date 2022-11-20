@@ -4,12 +4,13 @@ extends Node
 var balance: int = 0
 
 
-func add_funds(funds: int) -> void:
-	balance += funds
+func transfer_funds(target: Fundable, amount: int):
+	remove_funds(amount)
+	target.balance += amount
 
 
-func withdraw_funds(funds: int) -> void:
-	if (funds > balance):
-		push_error("Fundable.withdraw_funds: Insufficient funds (request: %d, balance: %d)" % [funds, balance])
+func remove_funds(amount: int):
+	if (amount > balance):
+		push_error("fundable.remove_funds: Insufficient funds (request: %d, balance: %d)" % [amount, balance])
 		return
-	balance -= funds
+	balance -= amount

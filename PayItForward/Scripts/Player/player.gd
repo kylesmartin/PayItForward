@@ -17,29 +17,33 @@ func set_current_tile(new_tile: GridTile) -> void:
 
 
 func fund_neighbor(direction: String) -> bool:
-	if direction == "forward" && current_tile.lower_neighbor != null && current_tile.lower_neighbor.occupant != null:
-		withdraw_funds(1)
-		var recipient: Player = current_tile.lower_neighbor.occupant as Player
-		recipient.add_funds(1)
-		print("Player %d gave player %d one dollar" % [id, recipient.id])
+	if direction == "forward" && current_tile.lower_neighbor != null && (current_tile.lower_neighbor.occupant != null or current_tile.lower_neighbor.atm != null):
+		var recipient: Fundable = current_tile.lower_neighbor.occupant as Fundable
+		if current_tile.lower_neighbor.atm != null:
+			recipient = current_tile.lower_neighbor.atm
+		transfer_funds(recipient, 1)
+		print("Player %d gave one dollar" % id)
 		return true
-	elif direction == "backward" && current_tile.upper_neighbor != null && current_tile.upper_neighbor.occupant != null:
-		withdraw_funds(1)
-		var recipient: Player = current_tile.upper_neighbor.occupant as Player
-		recipient.add_funds(1)
-		print("Player %d gave player %d one dollar" % [id, recipient.id])
+	elif direction == "backward" && current_tile.upper_neighbor != null && (current_tile.upper_neighbor.occupant != null or current_tile.upper_neighbor.atm != null):
+		var recipient: Fundable = current_tile.upper_neighbor.occupant as Fundable
+		if current_tile.upper_neighbor.atm != null:
+			recipient = current_tile.upper_neighbor.atm
+		transfer_funds(recipient, 1)
+		print("Player %d gave one dollar" % id)
 		return true
-	elif direction == "left" && current_tile.left_neighbor != null && current_tile.left_neighbor.occupant != null:
-		withdraw_funds(1)
-		var recipient: Player = current_tile.left_neighbor.occupant as Player
-		recipient.add_funds(1)
-		print("Player %d gave player %d one dollar" % [id, recipient.id])
+	elif direction == "left" && current_tile.left_neighbor != null && (current_tile.left_neighbor.occupant != null or current_tile.left_neighbor.atm != null):
+		var recipient: Fundable = current_tile.left_neighbor.occupant as Fundable
+		if current_tile.left_neighbor.atm != null:
+			recipient = current_tile.left_neighbor.atm
+		transfer_funds(recipient, 1)
+		print("Player %d gave one dollar" % id)
 		return true
-	elif direction == "right" && current_tile.right_neighbor != null && current_tile.right_neighbor.occupant != null:
-		withdraw_funds(1)
-		var recipient: Player = current_tile.right_neighbor.occupant as Player
-		recipient.add_funds(1)
-		print("Player %d gave player %d one dollar" % [id, recipient.id])
+	elif direction == "right" && current_tile.right_neighbor != null && (current_tile.right_neighbor.occupant != null or current_tile.right_neighbor.atm != null):
+		var recipient: Fundable = current_tile.right_neighbor.occupant as Fundable
+		if current_tile.right_neighbor.atm != null:
+			recipient = current_tile.right_neighbor.atm
+		transfer_funds(recipient, 1)
+		print("Player %d gave one dollar" % id)
 		return true
 	return false
 

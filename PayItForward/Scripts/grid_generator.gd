@@ -54,9 +54,9 @@ export var player_starts = [
 	Vector3(0, 0, 0)
 ]
 
-# x, y, player_starts index
+# x, y
 export var player_finishes = [
-	Vector3(0, 0, 0)
+	Vector2(0, 0)
 ]
 
 
@@ -82,7 +82,7 @@ func _ready() -> void:
 			var start_tile: GridTile = tiles[i][j] as GridTile
 			var p: Player = players[i][j] as Player
 			p.set_current_tile(start_tile)
-			start_tile.set_player_id(p.id, false)
+			# start_tile.set_player_id(p.id, false) TODO: not sure if this is needed
 			level_manager_instance.players.push_back(p)
 
 	# set current tiles of all atms
@@ -93,7 +93,7 @@ func _ready() -> void:
 				continue
 			var atm: ATM = atms[i][j] as ATM
 			atm.set_current_tile(tiles[i][j] as GridTile)
-			
+
 	# fund players
 	for player_start in player_starts:
 		var x: int = player_start.x
@@ -103,7 +103,15 @@ func _ready() -> void:
 		if p == null:
 			push_error("grid_generator._ready: no player found at (%d, %d)" % [x, y])
 			return
-		p.add_funds(funds)
+		p.balance = funds
+
+	# convert finishing tiles
+	for i in len(player_finishes):
+		var x: int = player_finishes[i].x
+		var y: int = player_finishes[i].y
+		var finish_tile: GridTile = tiles[x][y] as GridTile
+		finish_tile.set_player_id(i+1, true)
+
 
 # updates the grid
 func set_grid(new_grid):

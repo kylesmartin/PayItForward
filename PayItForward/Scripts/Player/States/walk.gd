@@ -33,7 +33,7 @@ func enter(_msg := {}) -> void:
 	# play animation
 	animated_sprite.play("walk_%s" % direction)
 	# decrement player balance
-	player.withdraw_funds(1) # TODO: set movement cost as a constant somewhere
+	player.remove_funds(1) # TODO: set movement cost as a constant somewhere
 	print("Player %d balance is now %d" % [player.id, player.balance]) # TODO: send signal here
 
 

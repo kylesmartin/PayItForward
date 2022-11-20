@@ -25,6 +25,10 @@ func update(delta: float) -> void:
 	if !is_active or !player.is_active:
 		return
 
+	if Input.is_action_just_pressed("interact") and player.current_tile.upper_neighbor != null and player.current_tile.upper_neighbor.atm != null:
+		var atm: ATM = player.current_tile.upper_neighbor.atm as ATM
+		atm.transfer_funds(player, 1)
+
 	# give money OR transition out of idle if the movement is valid
 	if Input.is_action_just_pressed("move_up"):
 		var success: bool = player.fund_neighbor("backward")
