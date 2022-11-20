@@ -33,6 +33,9 @@ var atms = []
 # list of all nodes spawned by the grid generator
 var spawned_nodes = []
 
+# the player balance container
+onready var balance_container: BalanceContainerUI = get_node("CanvasLayer/BalanceContainer")
+
 """
 stores the format of the grid
 
@@ -61,6 +64,7 @@ export var player_finishes = [
 
 
 func _ready() -> void:
+	# add level manager to game
 	var level_manager_instance: LevelManager = level_manager.instance() as LevelManager
 	add_child(level_manager_instance)
 	
@@ -74,6 +78,7 @@ func _ready() -> void:
 			tile.find_neighbors(tiles, i, j)
 
 	# set current tiles of all players
+	var player_list = []
 	for i in len(players):
 		for j in len(players[i]):
 			# skip if null
@@ -82,8 +87,10 @@ func _ready() -> void:
 			var start_tile: GridTile = tiles[i][j] as GridTile
 			var p: Player = players[i][j] as Player
 			p.set_current_tile(start_tile)
-			# start_tile.set_player_id(p.id, false) TODO: not sure if this is needed
-			level_manager_instance.players.push_back(p)
+			# start_tile.set_player_id(p.id, false) TODO: uncomment if you want to color start positions
+			# add player to player list in level manager
+			player_list.push_back(p)
+	level_manager_instance.set_players(player_list)
 
 	# set current tiles of all atms
 	for i in len(atms):
@@ -96,24 +103,31 @@ func _ready() -> void:
 
 	# fund players
 	for player_start in player_starts:
+		# player_start contains start coordinates and funds
 		var x: int = player_start.x
 		var y: int = player_start.y
 		var funds: int = player_start.z
+		# fund each Fundable component
 		var p: Fundable = players[x][y]
 		if p == null:
 			push_error("grid_generator._ready: no player found at (%d, %d)" % [x, y])
 			return
 		p.balance = funds
 
-	# convert finishing tiles
+	# convert tiles to finishing tiles
 	for i in len(player_finishes):
+		# get coordinates
 		var x: int = player_finishes[i].x
 		var y: int = player_finishes[i].y
+		# set associated player id of tile
 		var finish_tile: GridTile = tiles[x][y] as GridTile
 		finish_tile.set_player_id(i+1, true)
+		
+	# spawn player balance UIs
+	balance_container.spawn_balance_uis(level_manager_instance.players)
 
 
-# updates the grid
+# updates the grid upon changes in the editor
 func set_grid(new_grid):
 	var player_count: int = 0
 	grid = new_grid

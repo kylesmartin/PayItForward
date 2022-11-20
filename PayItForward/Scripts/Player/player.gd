@@ -7,6 +7,12 @@ var current_tile: GridTile
 
 var is_active: bool = false
 
+var is_idle: bool = true
+
+var is_finished: bool = false
+
+onready var idle = get_node("StateMachine/Idle")
+
 
 # sets the current tile and occupies it
 func set_current_tile(new_tile: GridTile) -> void:

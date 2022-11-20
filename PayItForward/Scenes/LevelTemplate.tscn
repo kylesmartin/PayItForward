@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://Scripts/grid_generator.gd" type="Script" id=1]
+[ext_resource path="res://Scenes/BalanceContainerUI.tscn" type="PackedScene" id=3]
 
 [node name="LevelTemplate" type="YSort"]
 script = ExtResource( 1 )
@@ -12,3 +13,7 @@ player_finishes = [ Vector2( 0, 4 ), Vector2( 4, 0 ) ]
 position = Vector2( 32, 32 )
 current = true
 zoom = Vector2( 0.2, 0.2 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="BalanceContainer" parent="CanvasLayer" instance=ExtResource( 3 )]

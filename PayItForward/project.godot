@@ -14,6 +14,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Scripts/atm.gd"
 }, {
+"base": "MarginContainer",
+"class": "BalanceContainerUI",
+"language": "GDScript",
+"path": "res://Scripts/UI/balance_container.gd"
+}, {
 "base": "Node",
 "class": "Fundable",
 "language": "GDScript",
@@ -35,6 +40,11 @@ _global_script_classes=[ {
 "path": "res://Scripts/Player/player.gd"
 }, {
 "base": "Node",
+"class": "PlayerBalanceUI",
+"language": "GDScript",
+"path": "res://Scripts/UI/player_balance.gd"
+}, {
+"base": "Node",
 "class": "State",
 "language": "GDScript",
 "path": "res://Scripts/state.gd"
@@ -46,10 +56,12 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "ATM": "",
+"BalanceContainerUI": "",
 "Fundable": "",
 "GridTile": "",
 "LevelManager": "",
 "Player": "",
+"PlayerBalanceUI": "",
 "State": "",
 "StateMachine": ""
 }

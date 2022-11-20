@@ -20,6 +20,8 @@ var t = 0
 
 # Upon entering the state, we set the animation state to walk with a given direction
 func enter(_msg := {}) -> void:
+	player.is_idle = false
+	
 	direction = _msg["direction"]
 	# get next tile
 	if direction == "forward":
@@ -39,6 +41,8 @@ func enter(_msg := {}) -> void:
 
 # On exit, stop the current idle animation
 func exit() -> void:
+	player.is_idle = true
+	
 	player.set_current_tile(next_tile)
 	t = 0
 	next_tile = null

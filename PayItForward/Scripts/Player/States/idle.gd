@@ -8,6 +8,8 @@ export var player_path = NodePath()
 
 onready var player: Player = get_node(player_path)
 
+signal player_finished()
+
 
 # Upon entering the state, we set the animation state to idle with a given direction
 func enter(_msg := {}) -> void:
@@ -19,6 +21,10 @@ func enter(_msg := {}) -> void:
 
 	# loop idle animation
 	animated_sprite.play("idle_%s" % _msg["direction"])
+	
+	# check if finishing tile
+	if player.current_tile.is_finish and player.current_tile.player_id == player.id:
+		emit_signal("player_finished")
 
 
 func update(delta: float) -> void:

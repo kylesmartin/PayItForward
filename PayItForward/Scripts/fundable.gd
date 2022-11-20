@@ -5,12 +5,14 @@ var balance: int = 0
 
 
 func transfer_funds(target: Fundable, amount: int):
-	remove_funds(amount)
-	target.balance += amount
+	var success: bool = remove_funds(amount)
+	if success:
+		target.balance += amount
 
 
-func remove_funds(amount: int):
+func remove_funds(amount: int) -> bool:
 	if (amount > balance):
 		push_error("fundable.remove_funds: Insufficient funds (request: %d, balance: %d)" % [amount, balance])
-		return
+		return false
 	balance -= amount
+	return true
