@@ -1,16 +1,19 @@
 class_name Player
 extends Fundable
 
+# the player id
 export var id: int
 
+# the current tile that the player is on
 var current_tile: GridTile
 
+# true if current mobile player
 var is_active: bool = false
 
+# true if in idle state
 var is_idle: bool = true
 
-var is_finished: bool = false
-
+# the idle node
 onready var idle = get_node("StateMachine/Idle")
 
 
@@ -22,35 +25,18 @@ func set_current_tile(new_tile: GridTile) -> void:
 	current_tile = new_tile
 
 
+# funds the neighbor in the given direction
 func fund_neighbor(direction: String) -> bool:
-	if direction == "forward" && current_tile.lower_neighbor != null && (current_tile.lower_neighbor.occupant != null or current_tile.lower_neighbor.atm != null):
-		var recipient: Fundable = current_tile.lower_neighbor.occupant as Fundable
-		if current_tile.lower_neighbor.atm != null:
-			recipient = current_tile.lower_neighbor.atm
+	var neighbor_to_check: GridTile = current_tile.get_neighbor_from_direction(direction)
+	# check if neighbor is fundable
+	if neighbor_to_check != null && neighbor_to_check.occupant != null:
+		# get occupant or atm
+		var recipient: Fundable = neighbor_to_check.occupant as Fundable
+		# transfer funds
 		transfer_funds(recipient, 1)
 		print("Player %d gave one dollar" % id)
 		return true
-	elif direction == "backward" && current_tile.upper_neighbor != null && (current_tile.upper_neighbor.occupant != null or current_tile.upper_neighbor.atm != null):
-		var recipient: Fundable = current_tile.upper_neighbor.occupant as Fundable
-		if current_tile.upper_neighbor.atm != null:
-			recipient = current_tile.upper_neighbor.atm
-		transfer_funds(recipient, 1)
-		print("Player %d gave one dollar" % id)
-		return true
-	elif direction == "left" && current_tile.left_neighbor != null && (current_tile.left_neighbor.occupant != null or current_tile.left_neighbor.atm != null):
-		var recipient: Fundable = current_tile.left_neighbor.occupant as Fundable
-		if current_tile.left_neighbor.atm != null:
-			recipient = current_tile.left_neighbor.atm
-		transfer_funds(recipient, 1)
-		print("Player %d gave one dollar" % id)
-		return true
-	elif direction == "right" && current_tile.right_neighbor != null && (current_tile.right_neighbor.occupant != null or current_tile.right_neighbor.atm != null):
-		var recipient: Fundable = current_tile.right_neighbor.occupant as Fundable
-		if current_tile.right_neighbor.atm != null:
-			recipient = current_tile.right_neighbor.atm
-		transfer_funds(recipient, 1)
-		print("Player %d gave one dollar" % id)
-		return true
+
 	return false
 
 
@@ -58,15 +44,5 @@ func fund_neighbor(direction: String) -> bool:
 func check_move(direction: String) -> bool:
 	if !is_active:
 		return false
-	
-	if direction == "forward":
-		return current_tile.lower_neighbor != null && current_tile.lower_neighbor.atm == null && current_tile.lower_neighbor.occupant == null
-	elif direction == "backward":
-		return current_tile.upper_neighbor != null && current_tile.upper_neighbor.atm == null && current_tile.upper_neighbor.occupant == null
-	elif direction == "left":
-		return current_tile.left_neighbor != null && current_tile.left_neighbor.atm == null && current_tile.left_neighbor.occupant == null
-	elif direction == "right":
-		return current_tile.right_neighbor != null && current_tile.right_neighbor.atm == null && current_tile.right_neighbor.occupant == null
-	else:
-		push_error("Error checking neighbor: invalid direction '%s'" % direction)
-		return false
+	var neighbor_to_check: GridTile = current_tile.get_neighbor_from_direction(direction)
+	return neighbor_to_check != null && neighbor_to_check.occupant == null

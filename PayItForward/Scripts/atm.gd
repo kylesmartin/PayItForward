@@ -1,11 +1,11 @@
 class_name ATM
 extends Fundable
 
+# the tile that the ATM lives on
 var current_tile: GridTile
 
-export var animated_sprite_path = NodePath()
-
-onready var animated_sprite: AnimatedSprite = get_node(animated_sprite_path)
+# the ATMs sprite
+onready var animated_sprite: AnimatedSprite = get_node("Sprite") as AnimatedSprite
 
 
 func _process(delta) -> void:
@@ -20,5 +20,6 @@ func _process(delta) -> void:
 
 # sets the current tile and occupies it
 func set_current_tile(new_tile: GridTile) -> void:
-	new_tile.atm = self
+	new_tile.is_atm = true
+	new_tile.occupant = self
 	current_tile = new_tile

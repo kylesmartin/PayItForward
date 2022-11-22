@@ -1,9 +1,7 @@
 class_name GridTile
 extends Node
 
-export var animated_sprite_path = NodePath()
-
-onready var animated_sprite: AnimatedSprite = get_node(animated_sprite_path)
+onready var animated_sprite: AnimatedSprite = get_node("AnimatedSprite") as AnimatedSprite
 
 var upper_neighbor: GridTile = null
 
@@ -13,15 +11,13 @@ var left_neighbor: GridTile = null
 
 var right_neighbor: GridTile = null
 
-var is_finish = false
+var is_finish: bool = false
 
-var player_id = 0
+var player_id: int = 0
 
-# the atm occupying the space
-var atm = null
+var is_atm: bool = false
 
-# the player occupying the space
-var occupant = null
+var occupant: Fundable = null
 
 
 func _ready() -> void:
@@ -48,3 +44,20 @@ func set_player_id(_player_id: int, _is_finish: bool) -> void:
 	player_id = _player_id
 	is_finish = _is_finish
 	animated_sprite.play("space_%d" % player_id)
+
+
+# get neighbor based on direction
+func get_neighbor_from_direction(direction: String) -> GridTile:
+	var neighbor: GridTile
+	if direction == "forward":
+		neighbor = lower_neighbor
+	elif direction == "backward":
+		neighbor = upper_neighbor
+	elif direction == "left":
+		neighbor = left_neighbor
+	elif direction == "right":
+		neighbor = right_neighbor
+	else:
+		push_error("grid_tile.get_neighbor_from_direction: invalid direction supplied (%s)" % direction)
+		return null
+	return neighbor

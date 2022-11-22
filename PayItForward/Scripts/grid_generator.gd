@@ -122,7 +122,7 @@ func _ready() -> void:
 		# set associated player id of tile
 		var finish_tile: GridTile = tiles[x][y] as GridTile
 		finish_tile.set_player_id(i+1, true)
-		
+
 	# spawn player balance UIs
 	balance_container.spawn_balance_uis(level_manager_instance.players)
 
@@ -146,28 +146,20 @@ func set_grid(new_grid):
 	var current_pos = Vector2.ZERO
 	for i in len(grid):
 
-		var tile_row = []
-		var player_row = []
-		var atm_row = []
+		var tile_row: Array = []
+		var player_row: Array = []
+		var atm_row: Array = []
 		for j in len(grid[i]):
 
 			# create walkable space
 			if grid[i][j] > 0:
-				var tile_instance = grid_tile.instance()
-				tile_instance.position = current_pos
-				add_child(tile_instance)
-				tile_row.push_back(tile_instance)
-				spawned_nodes.push_back(tile_instance)
+				spawn_grid_object(grid_tile, current_pos, tile_row)
 			else:
 				tile_row.push_back(null)
 
 			# create atm
 			if grid[i][j] == 2:
-				var atm_instance = atm.instance()
-				atm_instance.position = current_pos
-				add_child(atm_instance)
-				atm_row.push_back(atm_instance)
-				spawned_nodes.push_back(atm_instance)
+				spawn_grid_object(atm, current_pos, atm_row)
 			else:
 				atm_row.push_back(null)
 
@@ -176,11 +168,7 @@ func set_grid(new_grid):
 				if player_count == len(player_prefabs):
 					push_error("grid_generator.set_grid: too many players")
 					return;
-				var player_instance = player_prefabs[player_count].instance()
-				player_instance.position = current_pos
-				add_child(player_instance)
-				player_row.push_back(player_instance)
-				spawned_nodes.push_back(player_instance)
+				spawn_grid_object(player_prefabs[player_count], current_pos, player_row)
 				player_count += 1
 			else:
 				player_row.push_back(null)
@@ -194,3 +182,12 @@ func set_grid(new_grid):
 		atms.push_back(atm_row)
 		# increment y position, set x position to 0
 		current_pos = Vector2(0, current_pos.y + grid_size)
+
+
+# spawns a grid object and sets its position
+func spawn_grid_object(node, position: Vector2, row: Array) -> void:
+	var node_instance = node.instance()
+	node_instance.position = position
+	add_child(node_instance)
+	row.push_back(node_instance)
+	spawned_nodes.push_back(node_instance)

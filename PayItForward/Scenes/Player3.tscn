@@ -188,8 +188,8 @@ initial_state = NodePath("Idle")
 
 [node name="Walk" type="Node2D" parent="StateMachine"]
 script = ExtResource( 1 )
-animated_sprite_path = NodePath("../../Sprite")
 walk_animation_duration = 2.0
+animated_sprite_path = NodePath("../../Sprite")
 player_path = NodePath("../..")
 
 [node name="Idle" type="Node2D" parent="StateMachine"]

@@ -27,7 +27,6 @@ animations = [ {
 [node name="ATM" type="Node2D"]
 z_index = 1
 script = ExtResource( 2 )
-animated_sprite_path = NodePath("Sprite")
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
 position = Vector2( 0, -9 )
