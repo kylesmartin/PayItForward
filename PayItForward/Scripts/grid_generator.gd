@@ -4,8 +4,12 @@ extends Node
 # the level manager scene
 var level_manager = preload("res://Scenes/LevelManager.tscn")
 
-# the walkable grid tile
+# walkable grid tiles
 var grid_tile = preload("res://Scenes/GridTile.tscn")
+var tax_2 = preload("res://Scenes/Tax2.tscn")
+var tax_3 = preload("res://Scenes/Tax3.tscn")
+var tax_4 = preload("res://Scenes/Tax4.tscn")
+var tax_5 = preload("res://Scenes/Tax5.tscn")
 
 # the four player prefabs
 var player_prefabs = [
@@ -76,6 +80,7 @@ func _ready() -> void:
 				continue
 			var tile: GridTile = tiles[i][j] as GridTile
 			tile.find_neighbors(tiles, i, j)
+			level_manager_instance.grid_tiles.push_back(tile)
 
 	# set current tiles of all players
 	var player_list = []
@@ -87,7 +92,7 @@ func _ready() -> void:
 			var start_tile: GridTile = tiles[i][j] as GridTile
 			var p: Player = players[i][j] as Player
 			p.set_current_tile(start_tile)
-			# start_tile.set_player_id(p.id, false) TODO: uncomment if you want to color start positions
+			start_tile.set_player_id(p.id, false) # TODO: comment if you want to discolor color start positions
 			# add player to player list in level manager
 			player_list.push_back(p)
 	level_manager_instance.set_players(player_list)
@@ -151,9 +156,17 @@ func set_grid(new_grid):
 		var atm_row: Array = []
 		for j in len(grid[i]):
 
-			# create walkable space
-			if grid[i][j] > 0:
+			# create regular space
+			if grid[i][j] == 1 || grid[i][j] == 2 || grid[i][j] == 3:
 				spawn_grid_object(grid_tile, current_pos, tile_row)
+			elif grid[i][j] == 4:
+				spawn_grid_object(tax_2, current_pos, tile_row)
+			elif grid[i][j] == 5:
+				spawn_grid_object(tax_3, current_pos, tile_row)
+			elif grid[i][j] == 6:
+				spawn_grid_object(tax_4, current_pos, tile_row)
+			elif grid[i][j] == 7:
+				spawn_grid_object(tax_5, current_pos, tile_row)
 			else:
 				tile_row.push_back(null)
 

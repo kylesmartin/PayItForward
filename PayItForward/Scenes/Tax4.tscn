@@ -92,6 +92,7 @@ animations = [ {
 
 [node name="GridTile" type="Node2D"]
 script = ExtResource( 2 )
+tax_multiple = 4
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 2 )

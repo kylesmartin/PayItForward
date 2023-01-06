@@ -19,6 +19,11 @@ var is_atm: bool = false
 
 var occupant: Fundable = null
 
+enum Multiple {ZERO = 0, TWO = 2, THREE = 3, FOUR = 4, FIVE = 5}
+export (Multiple) var tax_multiple
+
+onready var state_machine = get_node("StateMachine")
+
 
 func _ready() -> void:
 	set_player_id(0, false)
@@ -61,3 +66,18 @@ func get_neighbor_from_direction(direction: String) -> GridTile:
 		push_error("grid_tile.get_neighbor_from_direction: invalid direction supplied (%s)" % direction)
 		return null
 	return neighbor
+
+
+# updates the current tax state based on current move number
+func tax_current_move(current_move: int) -> void:
+	# don't switch if there is no tax multiple
+	if tax_multiple == 0:
+		return
+
+	if (current_move / tax_multiple) * tax_multiple == current_move:
+		state_machine.transition_to("Tax", {"multiple": tax_multiple})
+		# remove funds from occupant
+		if occupant != null:
+			occupant.remove_funds(5)
+	else:
+		state_machine.transition_to("Wait", {})

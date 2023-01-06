@@ -16,6 +16,9 @@ var is_idle: bool = true
 # the idle node
 onready var idle = get_node("StateMachine/Idle")
 
+# the walk node
+onready var walk = get_node("StateMachine/Walk")
+
 
 # sets the current tile and occupies it
 func set_current_tile(new_tile: GridTile) -> void:

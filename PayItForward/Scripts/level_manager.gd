@@ -4,11 +4,17 @@ extends Node
 # the array of players in the game
 var players = []
 
+# the array of grid tiles in the game
+var grid_tiles = []
+
 # the current player's index
 var current_index: int = 0
 
 # the number of players that have finished
 var finished_players = 0
+
+# the current move id
+var current_move = 1
 
 
 # sets the players and connects to their finished signals
@@ -16,6 +22,7 @@ func set_players(_players) -> void:
 	players = _players
 	for player in players:
 		player.idle.connect("player_finished", self, "_on_player_finished")
+		player.walk.connect("move_completed", self, "_increment_move")
 
 
 func _process(delta: float) -> void:
@@ -64,3 +71,11 @@ func loop_increment():
 	current_index += 1
 	if current_index == len(players):
 		current_index = 0
+
+
+func _increment_move() -> void:
+	current_move += 1
+	# check the tax of each tile
+	for elem in grid_tiles:
+		var tile: GridTile = elem as GridTile
+		tile.tax_current_move(current_move)

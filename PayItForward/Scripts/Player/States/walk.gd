@@ -20,6 +20,9 @@ var next_tile: GridTile
 # the current time in the walk duration
 var t = 0
 
+# emitted when this player finishes moving
+signal move_completed()
+
 
 # upon entering the state, we set the animation state to walk with a given direction
 func enter(_msg := {}) -> void:
@@ -34,13 +37,17 @@ func enter(_msg := {}) -> void:
 	print("Player %d balance is now %d" % [player.id, player.balance]) # TODO: send signal to level manager here
 
 
-# On exit, stop the current idle animation
+# on exit, stop the current idle animation
 func exit() -> void:
+	# set player to idle and set change current tile
 	player.is_idle = true
-
-	player.set_current_tile(next_tile)
+	player.set_current_tile(next_tile) 
+	# communicate to player that a move has been made
+	emit_signal("move_completed")
+	# reset time and next tile
 	t = 0
 	next_tile = null
+	# stop animation
 	animated_sprite.stop()
 
 
