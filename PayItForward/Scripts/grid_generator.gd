@@ -4,6 +4,8 @@ extends Node
 # the level manager scene
 var level_manager = preload("res://Scenes/LevelManager.tscn")
 
+export var level_id: int = 1
+
 # walkable grid tiles
 var grid_tile = preload("res://Scenes/GridTile.tscn")
 var tax_2 = preload("res://Scenes/Tax2.tscn")
@@ -15,8 +17,8 @@ var tax_5 = preload("res://Scenes/Tax5.tscn")
 var player_prefabs = [
 	preload("res://Scenes/Player1.tscn"),
 	preload("res://Scenes/Player2.tscn"),
-	# preload("res://Scenes/Player3.tscn"), // TODO: not ready yet
-	# preload("res://Scenes/Player4.tscn")  // TODO: not ready yet
+	preload("res://Scenes/Player3.tscn"),
+	preload("res://Scenes/Player4.tscn"),
 ]
 
 # the atm scene
@@ -71,6 +73,7 @@ func _ready() -> void:
 	# add level manager to game
 	var level_manager_instance: LevelManager = level_manager.instance() as LevelManager
 	add_child(level_manager_instance)
+	level_manager_instance.level_id = level_id
 	
 	# find neighbors of each grid tile
 	for i in len(tiles):
@@ -92,7 +95,7 @@ func _ready() -> void:
 			var start_tile: GridTile = tiles[i][j] as GridTile
 			var p: Player = players[i][j] as Player
 			p.set_current_tile(start_tile)
-			start_tile.set_player_id(p.id, false) # TODO: comment if you want to discolor color start positions
+			# start_tile.set_player_id(p.id, false) # TODO: uncomment if you want to color start positions
 			# add player to player list in level manager
 			player_list.push_back(p)
 	level_manager_instance.set_players(player_list)
@@ -127,6 +130,9 @@ func _ready() -> void:
 		# set associated player id of tile
 		var finish_tile: GridTile = tiles[x][y] as GridTile
 		finish_tile.set_player_id(i+1, true)
+	
+	# handle first move on all tiles
+	level_manager_instance.increment_move()
 
 	# spawn player balance UIs
 	balance_container.spawn_balance_uis(level_manager_instance.players)
@@ -169,6 +175,7 @@ func set_grid(new_grid):
 				spawn_grid_object(tax_5, current_pos, tile_row)
 			else:
 				tile_row.push_back(null)
+
 
 			# create atm
 			if grid[i][j] == 2:

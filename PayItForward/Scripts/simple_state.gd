@@ -4,14 +4,13 @@ extends State
 export var animated_sprite_path = NodePath()
 onready var animated_sprite: AnimatedSprite = get_node(animated_sprite_path)
 
+export var animation_name: String
 
-# upon entering the state, we turn on the tax space
-# can be 2, 3, 4, or 5
-func enter(_msg := {}) -> void:
-	var multiple: int = _msg["multiple"]
-	animated_sprite.play("tax_%d" % multiple)
+# turn on the state
+func enter(_msg := {}) -> void: 
+	animated_sprite.play(animation_name)
 
 
-# On exit, stop the current animation
+# upon exit, stop the current animation
 func exit() -> void:
 	animated_sprite.stop()

@@ -1,7 +1,7 @@
 class_name GridTile
 extends Node
 
-onready var animated_sprite: AnimatedSprite = get_node("AnimatedSprite") as AnimatedSprite
+onready var tile_sprite: AnimatedSprite = get_node("TileSprite") as AnimatedSprite
 
 var upper_neighbor: GridTile = null
 
@@ -22,7 +22,9 @@ var occupant: Fundable = null
 enum Multiple {ZERO = 0, TWO = 2, THREE = 3, FOUR = 4, FIVE = 5}
 export (Multiple) var tax_multiple
 
-onready var state_machine = get_node("StateMachine")
+onready var tax_state_machine = get_node("TaxStateMachine")
+
+onready var tile_state_machine = get_node("TileStateMachine")
 
 
 func _ready() -> void:
@@ -48,7 +50,7 @@ func find_neighbors(grid, row: int, column: int):
 func set_player_id(_player_id: int, _is_finish: bool) -> void:
 	player_id = _player_id
 	is_finish = _is_finish
-	animated_sprite.play("space_%d" % player_id)
+	tile_sprite.play("space_%d" % player_id)
 
 
 # get neighbor based on direction
@@ -68,16 +70,24 @@ func get_neighbor_from_direction(direction: String) -> GridTile:
 	return neighbor
 
 
-# updates the current tax state based on current move number
-func tax_current_move(current_move: int) -> void:
+# updates the current tax state based on move number
+# updates grid state based on occupant status
+func handle_current_move(current_move: int) -> void:
+	# set pressed state
+	if occupant != null && !is_atm && player_id == 0:
+		tile_state_machine.transition_to("Pressed")
+	elif player_id == 0:
+		tile_state_machine.transition_to("Open")
+
 	# don't switch if there is no tax multiple
 	if tax_multiple == 0:
+		tax_state_machine.transition_to("NoTax")
 		return
-
+	
 	if (current_move / tax_multiple) * tax_multiple == current_move:
-		state_machine.transition_to("Tax", {"multiple": tax_multiple})
+		tax_state_machine.transition_to("Tax", {"multiple": tax_multiple})
 		# remove funds from occupant
 		if occupant != null:
 			occupant.remove_funds(5)
 	else:
-		state_machine.transition_to("Wait", {})
+		tax_state_machine.transition_to("NoTax")

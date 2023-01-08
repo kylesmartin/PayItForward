@@ -14,7 +14,9 @@ var current_index: int = 0
 var finished_players = 0
 
 # the current move id
-var current_move = 1
+var current_move = -1
+
+var level_id = 0
 
 
 # sets the players and connects to their finished signals
@@ -22,7 +24,7 @@ func set_players(_players) -> void:
 	players = _players
 	for player in players:
 		player.idle.connect("player_finished", self, "_on_player_finished")
-		player.walk.connect("move_completed", self, "_increment_move")
+		player.walk.connect("move_completed", self, "increment_move")
 
 
 func _process(delta: float) -> void:
@@ -56,6 +58,7 @@ func _on_player_finished():
 	# check for level complete condition
 	if finished_players == len(players):
 		print("Level completed! Switching to next level (TODO)")
+		get_tree().change_scene("res://Scenes/Levels/Level%d.tscn" % (level_id + 1))
 		return
 	# go to next player
 	loop_increment()
@@ -73,9 +76,9 @@ func loop_increment():
 		current_index = 0
 
 
-func _increment_move() -> void:
+func increment_move() -> void:
 	current_move += 1
 	# check the tax of each tile
 	for elem in grid_tiles:
 		var tile: GridTile = elem as GridTile
-		tile.tax_current_move(current_move)
+		tile.handle_current_move(current_move)
