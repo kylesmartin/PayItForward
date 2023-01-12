@@ -30,6 +30,7 @@ func enter(_msg := {}) -> void:
 	# get next tile
 	direction = _msg["direction"]
 	next_tile = player.current_tile.get_neighbor_from_direction(direction)
+	player.current_tile.occupant_leaving = true
 	# play animation
 	animated_sprite.play("walk_%s" % direction)
 	# decrement player balance
@@ -41,7 +42,8 @@ func enter(_msg := {}) -> void:
 func exit() -> void:
 	# set player to idle and set change current tile
 	player.is_idle = true
-	player.set_current_tile(next_tile) 
+	player.set_current_tile(next_tile)
+	player.current_tile.occupant_leaving = false
 	# communicate to player that a move has been made
 	emit_signal("move_completed")
 	# reset time and next tile

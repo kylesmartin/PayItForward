@@ -19,6 +19,8 @@ var is_atm: bool = false
 
 var occupant: Fundable = null
 
+var occupant_leaving: bool = false
+
 enum Multiple {ZERO = 0, TWO = 2, THREE = 3, FOUR = 4, FIVE = 5}
 export (Multiple) var tax_multiple
 
@@ -29,6 +31,11 @@ onready var tile_state_machine = get_node("TileStateMachine")
 
 func _ready() -> void:
 	set_player_id(0, false)
+
+
+func _process(delta: float) -> void:
+	if occupant_leaving && player_id == 0:
+		tile_state_machine.transition_to("Open")
 
 
 # given a grid, finds neighbors
