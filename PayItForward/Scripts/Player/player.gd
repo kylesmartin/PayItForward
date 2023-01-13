@@ -2,7 +2,7 @@ class_name Player
 extends Fundable
 
 # the player id
-export var id: int
+var id: int = 1
 
 # the current tile that the player is on
 var current_tile: GridTile

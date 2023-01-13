@@ -1,138 +1,138 @@
 [gd_scene load_steps=39 format=2]
 
-[ext_resource path="res://Scripts/Player/States/walk.gd" type="Script" id=1]
+[ext_resource path="res://Sprites/player-Sheet.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/Player/player.gd" type="Script" id=2]
-[ext_resource path="res://Sprites/player-Sheet.png" type="Texture" id=3]
+[ext_resource path="res://Scripts/Player/States/idle.gd" type="Script" id=3]
 [ext_resource path="res://Scripts/state_machine.gd" type="Script" id=4]
-[ext_resource path="res://Scripts/Player/States/idle.gd" type="Script" id=5]
+[ext_resource path="res://Scripts/Player/States/walk.gd" type="Script" id=5]
 
 [sub_resource type="AtlasTexture" id=34]
-atlas = ExtResource( 3 )
-region = Rect2( 832, 0, 16, 32 )
+atlas = ExtResource( 1 )
+region = Rect2( 1856, 0, 16, 32 )
 
 [sub_resource type="AtlasTexture" id=35]
-atlas = ExtResource( 3 )
-region = Rect2( 848, 0, 16, 32 )
+atlas = ExtResource( 1 )
+region = Rect2( 1872, 0, 16, 32 )
 
 [sub_resource type="AtlasTexture" id=36]
-atlas = ExtResource( 3 )
-region = Rect2( 864, 0, 16, 32 )
+atlas = ExtResource( 1 )
+region = Rect2( 1888, 0, 16, 32 )
 
 [sub_resource type="AtlasTexture" id=37]
-atlas = ExtResource( 3 )
-region = Rect2( 880, 0, 16, 32 )
+atlas = ExtResource( 1 )
+region = Rect2( 1904, 0, 16, 32 )
 
 [sub_resource type="AtlasTexture" id=38]
-atlas = ExtResource( 3 )
-region = Rect2( 768, 0, 16, 32 )
+atlas = ExtResource( 1 )
+region = Rect2( 1792, 0, 16, 32 )
 
 [sub_resource type="AtlasTexture" id=39]
-atlas = ExtResource( 3 )
-region = Rect2( 784, 0, 16, 32 )
+atlas = ExtResource( 1 )
+region = Rect2( 1808, 0, 16, 32 )
 
 [sub_resource type="AtlasTexture" id=40]
-atlas = ExtResource( 3 )
-region = Rect2( 800, 0, 16, 32 )
+atlas = ExtResource( 1 )
+region = Rect2( 1824, 0, 16, 32 )
 
 [sub_resource type="AtlasTexture" id=41]
-atlas = ExtResource( 3 )
-region = Rect2( 816, 0, 16, 32 )
+atlas = ExtResource( 1 )
+region = Rect2( 1840, 0, 16, 32 )
 
 [sub_resource type="AtlasTexture" id=42]
-atlas = ExtResource( 3 )
-region = Rect2( 960, 0, 16, 32 )
+atlas = ExtResource( 1 )
+region = Rect2( 1984, 0, 16, 32 )
 
 [sub_resource type="AtlasTexture" id=43]
-atlas = ExtResource( 3 )
-region = Rect2( 976, 0, 16, 32 )
+atlas = ExtResource( 1 )
+region = Rect2( 2000, 0, 16, 32 )
 
 [sub_resource type="AtlasTexture" id=44]
-atlas = ExtResource( 3 )
-region = Rect2( 992, 0, 16, 32 )
+atlas = ExtResource( 1 )
+region = Rect2( 2016, 0, 16, 32 )
 
 [sub_resource type="AtlasTexture" id=45]
-atlas = ExtResource( 3 )
-region = Rect2( 1008, 0, 16, 32 )
+atlas = ExtResource( 1 )
+region = Rect2( 2032, 0, 16, 32 )
 
 [sub_resource type="AtlasTexture" id=46]
-atlas = ExtResource( 3 )
-region = Rect2( 896, 0, 16, 32 )
+atlas = ExtResource( 1 )
+region = Rect2( 1920, 0, 16, 32 )
 
 [sub_resource type="AtlasTexture" id=47]
-atlas = ExtResource( 3 )
-region = Rect2( 912, 0, 16, 32 )
+atlas = ExtResource( 1 )
+region = Rect2( 1936, 0, 16, 32 )
 
 [sub_resource type="AtlasTexture" id=48]
-atlas = ExtResource( 3 )
-region = Rect2( 928, 0, 16, 32 )
+atlas = ExtResource( 1 )
+region = Rect2( 1952, 0, 16, 32 )
 
 [sub_resource type="AtlasTexture" id=49]
-atlas = ExtResource( 3 )
-region = Rect2( 944, 0, 16, 32 )
+atlas = ExtResource( 1 )
+region = Rect2( 1968, 0, 16, 32 )
 
 [sub_resource type="AtlasTexture" id=50]
-atlas = ExtResource( 3 )
-region = Rect2( 576, 0, 16, 32 )
+atlas = ExtResource( 1 )
+region = Rect2( 1600, 0, 16, 32 )
 
 [sub_resource type="AtlasTexture" id=51]
-atlas = ExtResource( 3 )
-region = Rect2( 592, 0, 16, 32 )
+atlas = ExtResource( 1 )
+region = Rect2( 1616, 0, 16, 32 )
 
 [sub_resource type="AtlasTexture" id=52]
-atlas = ExtResource( 3 )
-region = Rect2( 608, 0, 16, 32 )
+atlas = ExtResource( 1 )
+region = Rect2( 1632, 0, 16, 32 )
 
 [sub_resource type="AtlasTexture" id=53]
-atlas = ExtResource( 3 )
-region = Rect2( 624, 0, 16, 32 )
+atlas = ExtResource( 1 )
+region = Rect2( 1648, 0, 16, 32 )
 
 [sub_resource type="AtlasTexture" id=54]
-atlas = ExtResource( 3 )
-region = Rect2( 512, 0, 16, 32 )
+atlas = ExtResource( 1 )
+region = Rect2( 1536, 0, 16, 32 )
 
 [sub_resource type="AtlasTexture" id=55]
-atlas = ExtResource( 3 )
-region = Rect2( 528, 0, 16, 32 )
+atlas = ExtResource( 1 )
+region = Rect2( 1552, 0, 16, 32 )
 
 [sub_resource type="AtlasTexture" id=56]
-atlas = ExtResource( 3 )
-region = Rect2( 544, 0, 16, 32 )
+atlas = ExtResource( 1 )
+region = Rect2( 1568, 0, 16, 32 )
 
 [sub_resource type="AtlasTexture" id=57]
-atlas = ExtResource( 3 )
-region = Rect2( 560, 0, 16, 32 )
+atlas = ExtResource( 1 )
+region = Rect2( 1584, 0, 16, 32 )
 
 [sub_resource type="AtlasTexture" id=58]
-atlas = ExtResource( 3 )
-region = Rect2( 704, 0, 16, 32 )
+atlas = ExtResource( 1 )
+region = Rect2( 1728, 0, 16, 32 )
 
 [sub_resource type="AtlasTexture" id=59]
-atlas = ExtResource( 3 )
-region = Rect2( 720, 0, 16, 32 )
+atlas = ExtResource( 1 )
+region = Rect2( 1744, 0, 16, 32 )
 
 [sub_resource type="AtlasTexture" id=60]
-atlas = ExtResource( 3 )
-region = Rect2( 736, 0, 16, 32 )
+atlas = ExtResource( 1 )
+region = Rect2( 1760, 0, 16, 32 )
 
 [sub_resource type="AtlasTexture" id=61]
-atlas = ExtResource( 3 )
-region = Rect2( 752, 0, 16, 32 )
+atlas = ExtResource( 1 )
+region = Rect2( 1776, 0, 16, 32 )
 
 [sub_resource type="AtlasTexture" id=62]
-atlas = ExtResource( 3 )
-region = Rect2( 640, 0, 16, 32 )
+atlas = ExtResource( 1 )
+region = Rect2( 1664, 0, 16, 32 )
 
 [sub_resource type="AtlasTexture" id=63]
-atlas = ExtResource( 3 )
-region = Rect2( 656, 0, 16, 32 )
+atlas = ExtResource( 1 )
+region = Rect2( 1680, 0, 16, 32 )
 
 [sub_resource type="AtlasTexture" id=64]
-atlas = ExtResource( 3 )
-region = Rect2( 672, 0, 16, 32 )
+atlas = ExtResource( 1 )
+region = Rect2( 1696, 0, 16, 32 )
 
 [sub_resource type="AtlasTexture" id=65]
-atlas = ExtResource( 3 )
-region = Rect2( 688, 0, 16, 32 )
+atlas = ExtResource( 1 )
+region = Rect2( 1712, 0, 16, 32 )
 
 [sub_resource type="SpriteFrames" id=33]
 animations = [ {
@@ -180,20 +180,20 @@ animations = [ {
 [node name="Player" type="Node2D"]
 z_index = 1
 script = ExtResource( 2 )
-id = 2
+id = 4
 
 [node name="StateMachine" type="Node2D" parent="."]
 script = ExtResource( 4 )
 initial_state = NodePath("Idle")
 
 [node name="Walk" type="Node2D" parent="StateMachine"]
-script = ExtResource( 1 )
+script = ExtResource( 5 )
 walk_animation_duration = 2.0
 animated_sprite_path = NodePath("../../Sprite")
 player_path = NodePath("../..")
 
 [node name="Idle" type="Node2D" parent="StateMachine"]
-script = ExtResource( 5 )
+script = ExtResource( 3 )
 animated_sprite_path = NodePath("../../Sprite")
 player_path = NodePath("../..")
 
