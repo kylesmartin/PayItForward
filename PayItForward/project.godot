@@ -69,8 +69,12 @@ _global_script_class_icons={
 [application]
 
 config/name="PayItForward"
-run/main_scene="res://Scenes/Levels/Level1.tscn"
+run/main_scene="res://Scenes/Menu.tscn"
 config/icon="res://icon.png"
+
+[autoload]
+
+BackgroundMusicV2="*res://Scenes/BackgroundMusicV2.tscn"
 
 [gui]
 

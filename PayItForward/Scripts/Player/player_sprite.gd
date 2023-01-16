@@ -4,6 +4,11 @@ extends AnimatedSprite
 export var player_path = NodePath()
 onready var player: Player = get_node(player_path)
 
+export var balance_sprite_path = NodePath()
+onready var balance_sprite: CanvasItem = get_node(balance_sprite_path)
+
+var above_threshold = false
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -23,3 +28,12 @@ func _process(delta):
 		self.material.set_shader_param("r", 1)
 		self.material.set_shader_param("g", 0.36)
 		self.material.set_shader_param("b", 0.8)
+		
+	if player.is_finished and not above_threshold:
+		balance_sprite.hide()
+		position -= Vector2(0, 200 * delta)
+		if position.y < -200:
+			above_threshold = true
+			
+	if player.failed:
+		balance_sprite.hide()

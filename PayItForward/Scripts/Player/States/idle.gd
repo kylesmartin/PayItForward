@@ -2,6 +2,7 @@ extends State
 
 # the animated player sprite
 export var animated_sprite_path = NodePath()
+onready var animated_sprite_node: Node = get_node(animated_sprite_path)
 onready var animated_sprite: AnimatedSprite = get_node(animated_sprite_path) as AnimatedSprite
 
 # the player component associated with this state
@@ -14,6 +15,12 @@ signal player_finished()
 
 # Upon entering the state, we set the animation state to idle with a given direction
 func enter(_msg := {}) -> void:
+	# player sprite should be 90% size while idle on id-less tile
+	if player.current_tile == null or player.current_tile.player_id == 0:
+		animated_sprite_node.scale.x = 0.9
+		animated_sprite_node.scale.y = 0.9
+		animated_sprite_node.position.y = -14.5
+	
 	# if no message provided, default to forward
 	if !_msg.has("direction"):
 		print("No direction provided to idle state, defaulting to forward")
@@ -30,7 +37,7 @@ func enter(_msg := {}) -> void:
 
 func update(delta: float) -> void:
 	# return if the state or player is inactive
-	if !is_active or !player.is_active:
+	if !is_active or !player.is_active or player.failed:
 		return
 
 	# retrieve funds from atm

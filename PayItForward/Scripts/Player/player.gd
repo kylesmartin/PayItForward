@@ -19,6 +19,23 @@ onready var idle = get_node("StateMachine/Idle")
 # the walk node
 onready var walk = get_node("StateMachine/Walk")
 
+var is_finished = false
+
+var failed = false
+
+signal out_of_funds()
+
+func finish():
+	is_active = false
+	is_finished = true
+	$Finish.play()
+	current_tile.occupant = null
+
+
+func _process(delta):
+	if balance == 0 && is_idle && !is_finished:
+		emit_signal("out_of_funds")
+
 
 # sets the current tile and occupies it
 func set_current_tile(new_tile: GridTile) -> void:
@@ -38,6 +55,7 @@ func fund_neighbor(direction: String) -> bool:
 		# transfer funds
 		transfer_funds(recipient, 1)
 		print("Player %d gave one dollar" % id)
+		$GiveCoin.play()
 		return true
 
 	return false
@@ -45,7 +63,7 @@ func fund_neighbor(direction: String) -> bool:
 
 # checks if player is able to move in given direction (neighbor must exist and be unoccupied)
 func check_move(direction: String) -> bool:
-	if !is_active:
+	if !is_active or failed:
 		return false
 	var neighbor_to_check: GridTile = current_tile.get_neighbor_from_direction(direction)
 	return neighbor_to_check != null && neighbor_to_check.occupant == null

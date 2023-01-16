@@ -5,6 +5,7 @@ export var walk_animation_duration: float = 1.2
 
 # the animated sprite attached to this state
 export var animated_sprite_path = NodePath()
+onready var animated_sprite_node: Node = get_node(animated_sprite_path)
 onready var animated_sprite: AnimatedSprite = get_node(animated_sprite_path)
 
 # the player that owns this walk state
@@ -26,6 +27,11 @@ signal move_completed()
 
 # upon entering the state, we set the animation state to walk with a given direction
 func enter(_msg := {}) -> void:
+	# player sprite should be full size while walking
+	animated_sprite_node.scale.x = 1.0
+	animated_sprite_node.scale.y = 1.0
+	animated_sprite_node.position.y = -16
+	# set is_idle to false
 	player.is_idle = false
 	# get next tile
 	direction = _msg["direction"]

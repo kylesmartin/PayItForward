@@ -1,4 +1,4 @@
-[gd_scene load_steps=59 format=2]
+[gd_scene load_steps=61 format=2]
 
 [ext_resource path="res://Sprites/player-Sheet.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/Player/balance.gd" type="Script" id=2]
@@ -9,6 +9,8 @@
 [ext_resource path="res://Scripts/simple_state.gd" type="Script" id=7]
 [ext_resource path="res://Scripts/Player/States/walk.gd" type="Script" id=8]
 [ext_resource path="res://Scripts/Player/player_sprite.gd" type="Script" id=9]
+[ext_resource path="res://Sound/GiveFunds.wav" type="AudioStream" id=10]
+[ext_resource path="res://Sound/Finish.wav" type="AudioStream" id=11]
 
 [sub_resource type="Shader" id=48]
 code = "shader_type canvas_item;
@@ -27,8 +29,6 @@ void fragment() {
 		COLOR.b = b;
 	}
 }
-
-void vertex() { }
 "
 
 [sub_resource type="ShaderMaterial" id=49]
@@ -356,6 +356,7 @@ frame = 3
 playing = true
 script = ExtResource( 9 )
 player_path = NodePath("..")
+balance_sprite_path = NodePath("../BalanceSprite")
 
 [node name="StateMachine" type="Node2D" parent="."]
 script = ExtResource( 6 )
@@ -439,3 +440,9 @@ animation_name = "9"
 script = ExtResource( 7 )
 animated_sprite_path = NodePath("../../BalanceSprite")
 animation_name = "10"
+
+[node name="GiveCoin" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 10 )
+
+[node name="Finish" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 11 )

@@ -1,11 +1,13 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://Sprites/grid_tile-Sheet.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/grid_tile.gd" type="Script" id=2]
 [ext_resource path="res://Scripts/tax.gd" type="Script" id=3]
 [ext_resource path="res://Scripts/state_machine.gd" type="Script" id=4]
+[ext_resource path="res://Sound/Release.wav" type="AudioStream" id=5]
 [ext_resource path="res://Sprites/tax-Sheet.png" type="Texture" id=6]
 [ext_resource path="res://Scripts/simple_state.gd" type="Script" id=7]
+[ext_resource path="res://Sound/Press.wav" type="AudioStream" id=8]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 1 )
@@ -149,3 +151,10 @@ animated_sprite_path = NodePath("../../TaxSprite")
 script = ExtResource( 7 )
 animated_sprite_path = NodePath("../../TaxSprite")
 animation_name = "tax_0"
+
+[node name="Release" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 5 )
+
+[node name="Press" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 8 )
+volume_db = -2.0

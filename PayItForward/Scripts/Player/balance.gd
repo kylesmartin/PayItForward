@@ -13,7 +13,6 @@ func _process(delta):
 	state_machine.transition_to(str(player.balance), {})
 
 	if player.is_active:
-		print("player %d is active" % player.id)
 		self.material.set_shader_param("selected", true)
 		self.material.set_shader_param("r", 0.55)
 		self.material.set_shader_param("g", 0.85)

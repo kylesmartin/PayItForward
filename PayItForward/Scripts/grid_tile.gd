@@ -35,7 +35,9 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	if occupant_leaving && player_id == 0:
+		$Release.play()
 		tile_state_machine.transition_to("Open")
+		occupant_leaving = false
 
 
 # given a grid, finds neighbors
@@ -82,6 +84,8 @@ func get_neighbor_from_direction(direction: String) -> GridTile:
 func handle_current_move(current_move: int) -> void:
 	# set pressed state
 	if occupant != null && !is_atm && player_id == 0:
+		if current_move > 0 and tile_state_machine.current_state_name == "Open":
+			$Press.play()
 		tile_state_machine.transition_to("Pressed")
 	elif player_id == 0:
 		tile_state_machine.transition_to("Open")

@@ -10,7 +10,7 @@ func transfer_funds(target: Fundable, amount: int):
 	var success: bool = remove_funds(amount)
 	if success:
 		target.balance += amount
-
+		
 
 # remove funds from this account
 func remove_funds(amount: int) -> bool:
