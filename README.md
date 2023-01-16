@@ -1,2 +1,2 @@
 # PayItForward
-A game about sharing funds.
+A game about sharing funds
