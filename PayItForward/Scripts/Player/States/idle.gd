@@ -17,8 +17,6 @@ signal player_finished()
 func enter(_msg := {}) -> void:
 	# player sprite should be 90% size while idle on id-less tile
 	if player.current_tile == null or player.current_tile.player_id == 0:
-		animated_sprite_node.scale.x = 0.9
-		animated_sprite_node.scale.y = 0.9
 		animated_sprite_node.position.y = -14.5
 	
 	# if no message provided, default to forward

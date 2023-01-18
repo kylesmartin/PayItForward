@@ -28,8 +28,6 @@ signal move_completed()
 # upon entering the state, we set the animation state to walk with a given direction
 func enter(_msg := {}) -> void:
 	# player sprite should be full size while walking
-	animated_sprite_node.scale.x = 1.0
-	animated_sprite_node.scale.y = 1.0
 	animated_sprite_node.position.y = -16
 	# set is_idle to false
 	player.is_idle = false

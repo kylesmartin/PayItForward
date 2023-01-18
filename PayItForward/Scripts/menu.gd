@@ -21,4 +21,8 @@ func _on_TextureButton_pressed():
 
 
 func _on_TextureButton_mouse_entered():
-	pass # Replace with function body.
+	$BtnHover.play()
+
+
+func _on_TextureButton_button_down():
+	$BtnClick.play()
