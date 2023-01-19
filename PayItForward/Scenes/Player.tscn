@@ -222,9 +222,11 @@ uniform bool selected = false;
 
 void fragment() {
 	COLOR = texture(TEXTURE, UV);
-	COLOR.r = r;
-	COLOR.g = g;
-	COLOR.b = b;
+	if (COLOR.r > 0.5) {
+		COLOR.r = r;
+		COLOR.g = g;
+		COLOR.b = b;	
+	}
 }
 
 void vertex() {
